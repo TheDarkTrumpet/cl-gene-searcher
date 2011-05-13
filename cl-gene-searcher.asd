@@ -17,4 +17,4 @@
 	       (:file "lib/cl-gene-searcher/db-defs")
 	       (:file "lib/cl-gene-searcher/cl-gene-searcher"))
   :serial t
-  :depends-on (:clsql-odbc :clsql-sqlite3))
+  :depends-on (:clsql-sqlite3))
