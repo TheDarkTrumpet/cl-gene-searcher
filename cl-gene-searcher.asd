@@ -1,9 +1,9 @@
 (in-package #:cl-user)
 
-(defpackage #:wordnet-asd
+(defpackage #:cl-gene-searcher-asd
   (:use :cl))
 
-(in-package :wordnet-asd)
+(in-package :cl-gene-searcher-asd)
 
 (asdf:defsystem :cl-gene-searcher
   :name "cl-gene-searcher"
