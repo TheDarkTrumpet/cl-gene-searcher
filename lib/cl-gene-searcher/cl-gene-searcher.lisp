@@ -10,8 +10,8 @@
 ; Note, ran into some issues with this at times, run:
 ; (clsql:locally-disable-sql-reader-syntax) to disable syntax, then again to reenable
 ;
-(clsql:locally-disable-sql-reader-syntax)
-(clsql:locally-enable-sql-reader-syntax)
+(clsql:disable-sql-reader-syntax)
+(clsql:enable-sql-reader-syntax)
 
 (defmacro with-generic-sqlite-db ((var) &body body)
   `(let ((,var (connect-db (make-instance 'db-connection-sqlite :path "data/hg18.sqlite"))))
