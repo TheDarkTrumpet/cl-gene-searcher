@@ -14,9 +14,10 @@
 (clsql:enable-sql-reader-syntax)
 
 (defmacro with-generic-sqlite-db ((var) &body body)
-  `(let ((,var (connect-db (make-instance 'db-connection-sqlite :path "data/hg18.sqlite"))))
-     ,@body
-     (disconnect-db ,var)))
+  `(let* ((,var (connect-db (make-instance 'db-connection-sqlite :path "data/hg18.sqlite")))
+	  (with-generic-sqlite-db-output ,@body))
+     (disconnect-db ,var)
+     with-generic-sqlite-db-output))
 
 (define-condition query-error (error)
   ((text :initarg :text :reader text)))
