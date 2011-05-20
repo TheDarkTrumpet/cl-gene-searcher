@@ -17,3 +17,7 @@
   `(let ((,var (connect-db (make-instance 'db-connection-sqlite :path "data/hg18.sqlite"))))
      ,@body
      (disconnect-db ,var)))
+
+(define-condition query-error (error)
+  ((text :initarg :text :reader text)))
+
