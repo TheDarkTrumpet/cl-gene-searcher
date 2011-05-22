@@ -26,7 +26,7 @@
 	     :make-default t)))
   *global-db-connection-object*)
 
-(defun disconnect-db (db)
-  (when (eql (database-state db) :open)
-    (disconnect :database db))
+(defun disconnect-db ()
+  (when (eql (database-state *global-db-connection-object*) :open)
+    (disconnect :database *global-db-connection-object*))
   T)
