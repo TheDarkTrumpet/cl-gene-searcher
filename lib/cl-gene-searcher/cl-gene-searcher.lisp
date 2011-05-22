@@ -13,8 +13,10 @@
 (clsql:disable-sql-reader-syntax)
 (clsql:enable-sql-reader-syntax)
 
+(defvar *database-path* "data/hg18.sqlite")
+
 (defmacro with-generic-sqlite-db ((var) &body body)
-  `(let* ((,var (connect-db (make-instance 'db-connection-sqlite :path "data/hg18.sqlite"))))
+  `(let* ((,var (connect-db (make-instance 'db-connection-sqlite :path *database-path*))))
      ,@body))
 
 (define-condition query-error (error)
