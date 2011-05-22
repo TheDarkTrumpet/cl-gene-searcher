@@ -15,8 +15,14 @@
 
 (defvar *database-path* "data/hg18.sqlite")
 
+(defun setDatabasePath(path) 
+  (setf *database-path path))
+
+(defun getDatabasePath ()
+  *database-path*)
+
 (defmacro with-generic-sqlite-db ((var) &body body)
-  `(let* ((,var (connect-db (make-instance 'db-connection-sqlite :path *database-path*))))
+  `(let* ((,var (connect-db (make-instance 'db-connection-sqlite :path (getDatabasePath)))))
      ,@body))
 
 (define-condition query-error (error)
