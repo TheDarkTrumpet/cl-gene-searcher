@@ -16,7 +16,7 @@
 (defvar *database-path* "data/hg18.sqlite")
 
 (defun setDatabasePath(path) 
-  (setf *database-path path))
+  (setf *database-path* path))
 
 (defun getDatabasePath ()
   *database-path*)
