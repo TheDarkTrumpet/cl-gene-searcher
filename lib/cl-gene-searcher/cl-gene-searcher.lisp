@@ -36,17 +36,17 @@
 (defun query-ucsc-gene-by-range (&key chr start stop)
   (with-generic-sqlite-db (v)
     (when (not stop) (setf stop start))
-    (clsql:select 'genes :where [and [= 'chr chr] [>= 'start_region start] [<= 'stop_region stop] [= [slot-value 'genePlatform 'name] "UCSC"]] :database v :flatp t)))
+    (clsql:select 'genes :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop] [= [slot-value 'genePlatform 'name] "UCSC"]] :database v :flatp t)))
 
 (defun query-refFlat-gene-by-range (&key chr start stop)
   (with-generic-sqlite-db (v)
     (when (not stop) (setf stop start))
-    (clsql:select 'genes :where [and [= 'chr chr] [>= 'start_region start] [<= 'stop_region stop] [= [slot-value 'genePlatform 'name] "refFlat"]] :database v :flatp t)))
+    (clsql:select 'genes :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop] [= [slot-value 'genePlatform 'name] "refFlat"]] :database v :flatp t)))
 
 (defun query-gene-by-range (&key chr start stop)
   (when (not stop) (setf stop start))
-  (with-generic-sqlite-db (v) (clsql:select 'genes :where [and [= 'chr chr] [>= 'start_region start] [<= 'stop_region stop]] :database v :flatp t)))
+  (with-generic-sqlite-db (v) (clsql:select 'genes :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop]] :database v :flatp t)))
 
 (defun query-dgv-by-range (&key chr start stop)
   (when (not stop) (setf stop start))
-  (with-generic-sqlite-db (v) (clsql:select 'dgv :where [and [= 'chr chr] [>= 'start_region start] [<= 'stop_region stop]] :database v :flatp t)))
+  (with-generic-sqlite-db (v) (clsql:select 'dgv :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop]] :database v :flatp t)))
