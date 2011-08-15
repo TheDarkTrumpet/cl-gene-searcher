@@ -29,24 +29,24 @@
   ((text :initarg :text :reader text)))
 
 
-; Maybe a temporary holding ground for some of the simpler functions
+; Maybe a temporary holding ground for some of the simpler fuctions
 (defun query-gene-by-name (name)
-  (with-generic-sqlite-db (v) (clsql:select 'genes :where [= 'name name] :database v :flatp t)))
+  (with-generic-sqlite-db (v) (clsql:select 'genes :where [= 'name name] :database v :flatp t :caching nil)))
 
 (defun query-ucsc-gene-by-range (&key chr start stop)
   (with-generic-sqlite-db (v)
     (when (not stop) (setf stop start))
-    (clsql:select 'genes :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop] [= [slot-value 'genePlatform 'name] "UCSC"]] :database v :flatp t)))
+    (clsql:select 'genes :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop] [= [slot-value 'genePlatform 'name] "UCSC"]] :database v :flatp t :caching nil)))
 
 (defun query-refFlat-gene-by-range (&key chr start stop)
   (with-generic-sqlite-db (v)
     (when (not stop) (setf stop start))
-    (clsql:select 'genes :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop] [= [slot-value 'genePlatform 'name] "refFlat"]] :database v :flatp t)))
+    (clsql:select 'genes :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop] [= [slot-value 'genePlatform 'name] "refFlat"]] :database v :flatp t :caching nil)))
 
 (defun query-gene-by-range (&key chr start stop)
   (when (not stop) (setf stop start))
-  (with-generic-sqlite-db (v) (clsql:select 'genes :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop]] :database v :flatp t)))
+  (with-generic-sqlite-db (v) (clsql:select 'genes :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop]] :database v :flatp t :caching nil)))
 
 (defun query-dgv-by-range (&key chr start stop)
   (when (not stop) (setf stop start))
-  (with-generic-sqlite-db (v) (clsql:select 'dgv :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop]] :database v :flatp t)))
+  (with-generic-sqlite-db (v) (clsql:select 'dgv :where [and [= 'chr chr] [>= 'stop_region start] [<= 'start_region stop]] :database v :flatp t :caching nil)))
