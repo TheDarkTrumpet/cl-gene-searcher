@@ -30,8 +30,19 @@
 
 
 ; Maybe a temporary holding ground for some of the simpler fuctions
-(defun query-gene-by-name (name)
-  (with-generic-sqlite-db (v) (clsql:select 'genes :where [= 'name name] :database v :flatp t :caching nil)))
+(defun query-gene-by-name (name &rest names)
+  (let ((genecol '()))
+    "Given 1 or more names, we attempt to loop through the names, looking up each of the names and returning a collection"
+    (setf names (append names (list name)))
+    (loop for x in names 
+	  for gene = (with-generic-sqlite-db (v) (clsql:select 'genes :where [like [slot-value 'genes 'name] x] :database v :flatp t :caching nil))
+	  while x
+	  do
+       (cond ((listp gene)
+	      (loop for g in gene do (push g genecol)))
+	     ((equal 'genes (type-of gene))
+	      (push gene genecol))))
+    genecol))
 
 (defun query-ucsc-gene-by-range (&key chr start stop)
   (with-generic-sqlite-db (v)
